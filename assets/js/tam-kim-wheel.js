@@ -39,7 +39,7 @@ var goldPrizes = [
     fillStyle: '#fbd3db',
     textFillStyle: '#333',
     description: 'Bạn đã nhận được phần thưởng Tiền mặt 5.000.000đ.',
-    chance: 1,
+    chance: 0,
   },
   {
     text: 'Tiền mặt\n2.000.000đ',
@@ -48,7 +48,7 @@ var goldPrizes = [
     fillStyle: '#fb8da0',
     textFillStyle: '#fff',
     description: 'Bạn đã nhận được phần thưởng Tiền mặt 2.000.000đ.',
-    chance: 4,
+    chance: 0,
   },
   {
     text: 'Tiền mặt\n500.000đ',
@@ -57,7 +57,7 @@ var goldPrizes = [
     fillStyle: '#fb6b90',
     textFillStyle: '#fff',
     description: 'Bạn đã nhận được phần thưởng Tiền mặt 500.000đ.',
-    chance: 10,
+    chance: 0,
   },
   {
     text: 'Bình giữ nhiệt\nsang chảnh',
@@ -67,7 +67,7 @@ var goldPrizes = [
     textFillStyle: '#fff',
     description:
       'Bạn đã nhận được Bình giữ nhiệt sang chảnh (trị giá 300.000đ).',
-    chance: 20,
+    chance: 25,
   },
   {
     text: 'Dưỡng môi\ncao cấp',
@@ -85,7 +85,7 @@ var goldPrizes = [
     fillStyle: '#fb8da0',
     textFillStyle: '#fff',
     description: 'Bạn đã trúng 1 cặp chân mày phun trị giá 2.000.000đ.',
-    chance: 20,
+    chance: 25,
   },
   {
     text: 'Ủ mịn - kích\nmọc chân mày',
@@ -95,7 +95,7 @@ var goldPrizes = [
     textFillStyle: '#fff',
     description:
       'Bạn đã nhận được 1 lần ủ mịn - kích mọc chân mày (trị giá 600.000đ).',
-    chance: 20,
+    chance: 25,
   },
 ];
 
