@@ -1,0 +1,1225 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta />
+    <Links />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/winwheel@1.0.1/dist/Winwheel.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="./assets/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Thêm thư viện Winwheel.js và TweenMax -->
+    <script src="/assets/js/lucky-wheel.js"></script>
+
+    <!-- CSS tùy chỉnh cho vòng quay -->
+
+    <link href="/assets/css/lucky-wheel2.css" rel="stylesheet" />
+
+    <!-- Không cần thêm CSS tùy chỉnh cho các nút vì đã được chuyển sang file CSS -->
+
+    <!-- Page background with spa theme -->
+    <div class="page-background">
+      <i class="fas fa-spa spa-bg-icon"></i>
+      <i class="fas fa-spa spa-bg-icon"></i>
+      <i class="fas fa-spa spa-bg-icon"></i>
+      <i class="fas fa-spa spa-bg-icon"></i>
+    </div>
+
+    <div class="container-fluid lucky-wheel-header">
+      <div class="spa-overlay"></div>
+      <div class="container py-3 py-md-5">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="display-4 text-white">VÒNG QUAY MAY MẮN</h1>
+            <h3 class="text-white my-3">QUAY LÀ CÓ QUÀ, TRÚNG LÀ CÓ LỜI!</h3>
+            <p class="lead text-white">
+              Hãy thử vận may của bạn và nhận những phần quà hấp dẫn từ TÂM KIM
+            </p>
+            <div class="header-accent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-3 py-md-5">
+      <!-- Thêm trang trí vân tay -->
+      <div class="spa-decoration decoration-left"></div>
+      <div class="spa-decoration decoration-right"></div>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <!-- Nút chọn loại vòng quay với thiết kế mới -->
+          <!-- <div class="wheel-type-selector">
+            <button id="gold-wheel-btn" class="wheel-type-btn active">
+              VÒNG QUAY GOLD
+            </button>
+            <button id="vip-wheel-btn" class="wheel-type-btn">
+              VÒNG QUAY VIP
+            </button>
+          </div> -->
+
+          <!-- Thông báo khóa loại vòng quay -->
+          <!-- <div id="wheel-type-message" class="mb-3"></div> -->
+
+          <!-- Giữ nguyên dòng hướng dẫn -->
+          <div class="wheel-guide">
+            <i class="fas fa-spa"></i>KÉO VÀ THẢ VÒNG QUAY ĐỂ NHẬN QUÀ HẤP DẪN
+          </div>
+
+          <!-- Hiển thị số lượt quay còn lại -->
+          <div class="spin-counter">
+            <i class="fas fa-spa spin-icon"></i> LƯỢT QUAY CÒN LẠI:
+            <span id="remaining-spins">3</span>
+          </div>
+
+          <!-- Phần chính vòng quay -->
+          <div class="wheel-container">
+            <div class="pointer-container">
+              <div class="pointer"></div>
+            </div>
+            <canvas id="canvas" width="500" height="500"></canvas>
+          </div>
+
+          <button id="start-spin" class="btn btn-danger btn-lg mt-4">
+            <i class="fas fa-spa"></i> QUAY NGAY
+          </button>
+
+          <!-- Phần hiển thị phần thưởng đã quay được -->
+          <div class="user-prizes mt-5">
+            <div class="prize-header">
+              <h3>PHẦN THƯỞNG CỦA BẠN</h3>
+            </div>
+            <div id="user-prizes-list">
+              <!-- Phần thưởng sẽ được hiển thị ở đây bằng JavaScript -->
+            </div>
+          </div>
+
+          <div class="prize-list mt-5">
+            <div class="prize-header">
+              <h3>Danh Sách Phần Thưởng</h3>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <!-- 1. Tiền mặt 5.000.000đ
+ 2. Tiền mặt 2.000.000đ
+ 3. Tiền mặt 500.000đ
+ 4. Bình giữ nhiệt sang chảnh (trị giá 300.000đ) 
+ 5. Dưỡng môi cao cấp (trị giá 400.000đ)
+ 6. 1 lần ủ mịn - kích mọc chân mày (trị giá 600.000đ)
+ 7. Trúng 1 cặp chân mày phun trị giá 2tr -->
+                <ul class="list-unstyled">
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Tiền mặt 5.000.000Đ
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Tiền mặt 2.000.000Đ
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Tiền mặt 500.000Đ
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Bình giữ nhiệt sang chảnh (trị giá 300.000Đ)
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Dưỡng môi cao cấp (trị giá 400.000Đ)
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >1 lần ủ mịn - kích mọc chân mày (trị giá 600.000Đ)
+                  </li>
+                  <li>
+                    <i
+                      class="fas fa-spa"
+                      style="margin-right: 8px; color: var(--color-3)"
+                    ></i
+                    >Trúng 1 cặp chân mày phun trị giá 2.000.000Đ
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal hiển thị kết quả -->
+    <div
+      class="modal fade"
+      id="resultModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="resultModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div
+            class="modal-header"
+            style="background-color: var(--color-3); color: white"
+          >
+            <h5 class="modal-title" id="resultModalLabel">Kết Quả Vòng Quay</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              style="color: white"
+            >
+              <i class="fas fa-spa" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <h4
+              class="prize-name mb-4"
+              style="font-weight: bold; color: var(--color-3); font-size: 24px"
+              id="prizeDescription"
+            ></h4>
+            <div id="claim-instructions" style="display: none">
+              <p class="my-3" style="font-size: 16px">
+                Phần thưởng của bạn đã được lưu vào danh sách phía dưới.
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              ĐÓNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal đăng ký nhận thưởng -->
+    <div
+      class="modal fade"
+      id="luckyWheelClaimModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="luckyWheelClaimModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div
+            class="modal-header"
+            style="background-color: var(--color-3); color: white"
+          >
+            <h5 class="modal-title" id="luckyWheelClaimModalLabel">
+              Đăng Ký Nhận Thưởng Vòng Quay May Mắn
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              style="color: white"
+            >
+              <i class="fas fa-spa" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="modal-body p-0">
+            <div
+              class="form-dang-ky"
+              style="position: relative; overflow: hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="100%"
+                viewBox="0 -960 960 960"
+                width="100%"
+                preserveAspectRatio="none"
+                style="position: absolute; top: 0; left: 0; z-index: 0"
+                fill="rgba(154, 9, 3, 0.1)"
+              >
+                <path
+                  d="M123-584q-4-2-4-6.5t2-8.5q62-86 157-133t203-47q108 0 203.5 46T843-601q3 5 2.5 8t-3.5 6q-3 3-7.5 3t-8.5-5q-59-82-150.5-126T481-759q-103 0-193 44.5T138-589q-4 5-7.5 6t-7.5-1ZM600-81q-103-26-169.5-103T364-371q0-47 34.5-79t82.5-32q48 0 82.5 32t34.5 79q0 38 29.5 64t68.5 26q38 0 66.5-26t28.5-64q0-123-91.5-206T481-660q-127 0-218.5 83T171-371q0 24 5.5 62.5T200-221q2 5 0 7.5t-5 4.5q-4 2-8.5 1t-6.5-6q-13-38-20.5-77.5T152-371q0-129 98-220.5T481-683q136 0 233.5 90T812-371q0 46-34 78t-82 32q-49 0-84-32t-35-78q0-39-28.5-65T481-462q-39 0-68 26t-29 65q0 104 63 173.5T604-100q6 2 7.5 5t.5 7q-1 5-4 7t-8 0ZM247-801q-5 2-7.5.5T235-805q-2-2-2-6t3-6q57-31 119.5-47T481-880q65 0 127.5 16T728-819q5 2 5.5 6t-1.5 7q-2 3-5.5 5t-8.5 0q-55-27-115-42.5T481-859q-62 0-121 14.5T247-801ZM381-92q-58-60-90.5-126T258-371q0-89 65.5-150T481-582q92 0 158.5 61T706-371q0 5-2.5 7.5T696-361q-5 0-8-2.5t-3-7.5q0-81-60.5-136T481-562q-83 0-142.5 55T279-371q0 85 29.5 145T396-106q4 4 3.5 7.5T396-92q-2 2-6.5 3.5T381-92Zm306-73q-88 0-152.5-58.5T470-371q0-5 2.5-8t7.5-3q5 0 7.5 3t2.5 8q0 81 59.5 133.5T687-185q8 0 19-1t24-3q5-1 8 1.5t4 5.5q1 4-.5 7t-6.5 4q-18 5-31.5 5.5t-16.5.5Z"
+                ></path>
+              </svg>
+              <div class="p-4" style="position: relative; z-index: 1">
+                <div
+                  class="about-us-big-title small-about-us-big-title mb-4"
+                  style="color: var(--color-3); font-weight: bold"
+                >
+                  Chúc mừng bạn đã trúng thưởng!
+                </div>
+                <div class="news-detail mb-4">
+                  Vui lòng điền thông tin để nhận phần thưởng của bạn.
+                </div>
+
+                <form id="luckyWheelClaimForm" method="post">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="txtLuckyWheelName"
+                      name="txtLuckyWheelName"
+                      required
+                      class="form-control"
+                      placeholder="Họ Tên (*)"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="tel"
+                      id="txtLuckyWheelPhone"
+                      name="txtLuckyWheelPhone"
+                      required
+                      class="form-control"
+                      placeholder="Số điện thoại (*)"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="hidden"
+                      id="txtLuckyWheelPrize"
+                      name="txtLuckyWheelPrize"
+                    />
+                    <input
+                      type="hidden"
+                      id="txtLuckyWheelType"
+                      name="txtLuckyWheelType"
+                    />
+                    <input
+                      type="hidden"
+                      id="txtLuckyWheelTime"
+                      name="txtLuckyWheelTime"
+                    />
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      id="btnSubmitLuckyWheelClaim"
+                      class="bt-sform-dangky ladi-transition"
+                      style="
+                        background-color: var(--color-4);
+                        color: white;
+                        border: none;
+                        border-radius: 30px;
+                        padding: 10px 20px;
+                        font-weight: bold;
+                        width: 100%;
+                      "
+                    >
+                      ĐĂNG KÝ NHẬN THƯỞNG
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script để xử lý hiển thị nút nhận thưởng và quản lý phần thưởng -->
+    <script>
+      // Mảng lưu trữ phần thưởng người dùng đã quay được
+      var userPrizes = [];
+      var lastPrizeTimestamp = 0; // Biến để theo dõi thời gian phần thưởng cuối cùng
+      var isProcessingPrize = false; // Cờ để kiểm soát việc xử lý phần thưởng
+      var prizeSignatures = {}; // Object để theo dõi các giải thưởng đã lưu
+
+      // Thêm function để điều chỉnh font cho responsive
+      function getResponsiveFontSize() {
+        if (window.innerWidth <= 576) {
+          // Mobile
+          return 11;
+        } else if (window.innerWidth <= 768) {
+          // Tablet
+          return 12;
+        } else {
+          // Desktop
+          return 14;
+        }
+      }
+
+      // Cập nhật kích thước font text của vòng quay khi thay đổi kích thước màn hình
+      function updateWheelTextSize() {
+        if (typeof theWheel !== 'undefined') {
+          const container = document.querySelector('.wheel-container');
+          if (!container) return;
+
+          const containerRect = container.getBoundingClientRect();
+          const size = Math.floor(containerRect.width);
+
+          // Điều chỉnh kích thước font text dựa trên kích thước màn hình
+          if (window.innerWidth <= 576) {
+            // Mobile
+            theWheel.textFontSize = size * 0.025;
+            theWheel.textMargin = size * 0.015;
+          } else if (window.innerWidth <= 768) {
+            // Tablet
+            theWheel.textFontSize = size * 0.028;
+            theWheel.textMargin = size * 0.018;
+          } else {
+            // Desktop
+            theWheel.textFontSize = size * 0.032;
+            theWheel.textMargin = size * 0.024;
+          }
+
+          // Cập nhật kích thước font text cho từng phần thưởng
+          const fontSize = getResponsiveFontSize();
+          theWheel.segments.forEach((segment) => {
+            if (segment && segment.text) {
+              segment.textFontSize = fontSize;
+            }
+          });
+
+          theWheel.draw();
+        }
+      }
+
+      // Lắng nghe sự kiện thay đổi kích thước màn hình
+      window.addEventListener('resize', function () {
+        updateWheelTextSize();
+      });
+
+      function showClaimButton(isPrize) {
+        // Nếu là phần thưởng thật (khác "Chúc bạn may mắn lần sau")
+        if (isPrize) {
+          // Hiển thị layout hai nút (đóng + nhận thưởng)
+          document.getElementById('two-buttons-layout').style.display = 'flex';
+          document.getElementById('one-button-layout').style.display = 'none';
+
+          // Hiển thị thông báo hướng dẫn
+          document.getElementById('claim-instructions').style.display = 'block';
+        } else {
+          // Hiển thị layout một nút (chỉ đóng) - đã được căn giữa
+          document.getElementById('two-buttons-layout').style.display = 'none';
+          document.getElementById('one-button-layout').style.display = 'block';
+
+          // Ẩn thông báo hướng dẫn
+          document.getElementById('claim-instructions').style.display = 'none';
+        }
+      }
+
+      function openRegistrationForm(prize) {
+        // Đóng modal kết quả nếu đang mở
+        $('#resultModal').modal('hide');
+
+        // Chờ một chút rồi mở form đăng ký nhận thưởng mới
+        setTimeout(function () {
+          var winningSegment = prize || theWheel.getIndicatedSegment();
+
+          // Điền thông tin phần thưởng vào form
+          if (document.getElementById('txtLuckyWheelPrize')) {
+            document.getElementById('txtLuckyWheelPrize').value = prize
+              ? prize.title
+              : winningSegment.text.replace('\n', ' ');
+          }
+
+          if (document.getElementById('txtLuckyWheelType')) {
+            document.getElementById('txtLuckyWheelType').value =
+              currentWheelType;
+          }
+
+          if (document.getElementById('txtLuckyWheelTime')) {
+            document.getElementById('txtLuckyWheelTime').value =
+              new Date().toLocaleString();
+          }
+
+          // Mở modal đăng ký nhận thưởng
+          $('#luckyWheelClaimModal').modal('show');
+        }, 500);
+      }
+
+      // Lưu phần thưởng vào localStorage không còn xử lý trùng lặp
+      function savePrize(prizeInfo) {
+        // Kiểm tra nếu đang trong quá trình xử lý
+        if (isProcessingPrize) {
+          console.log('Đang xử lý phần thưởng, bỏ qua yêu cầu trùng lặp');
+          return;
+        }
+
+        isProcessingPrize = true;
+
+        try {
+          // Kiểm tra xem đây có phải là giải thưởng thật hay không
+          if (
+            !prizeInfo.description ||
+            prizeInfo.description.includes('Chúc bạn may mắn lần sau')
+          ) {
+            console.log('Không phải giải thưởng thật, không lưu');
+            isProcessingPrize = false;
+            return;
+          }
+
+          // Tạo ID duy nhất cho phần thưởng
+          var prizeId = new Date().getTime();
+          prizeInfo.id = prizeId;
+
+          // Kiểm tra khoảng thời gian giữa phần thưởng hiện tại và phần thưởng trước đó
+          var currentTime = new Date().getTime();
+          if (currentTime - lastPrizeTimestamp < 3000) {
+            // 3 giây
+            console.log(
+              'Quá nhanh giữa các lần lưu phần thưởng, có thể là trùng lặp'
+            );
+            isProcessingPrize = false;
+            return;
+          }
+
+          // Cập nhật timestamp cho lần lưu phần thưởng này
+          lastPrizeTimestamp = currentTime;
+
+          // Lấy danh sách phần thưởng hiện có
+          var prizes = [];
+          try {
+            prizes = localStorage.getItem('userPrizes')
+              ? JSON.parse(localStorage.getItem('userPrizes'))
+              : [];
+          } catch (error) {
+            console.error(
+              'Lỗi khi đọc danh sách phần thưởng từ localStorage, tạo mới'
+            );
+            prizes = [];
+          }
+
+          // Thêm timestamp cho phần thưởng
+          prizeInfo.timestamp = currentTime;
+
+          // Thêm phần thưởng vào danh sách
+          prizes.push(prizeInfo);
+
+          // Lưu vào localStorage
+          localStorage.setItem('userPrizes', JSON.stringify(prizes));
+
+          // Cập nhật biến userPrizes
+          userPrizes = prizes;
+
+          // Cập nhật giao diện hiển thị
+          renderUserPrizes();
+
+          console.log('Đã lưu phần thưởng mới: ' + prizeInfo.title);
+        } catch (error) {
+          console.error('Lỗi khi lưu phần thưởng:', error);
+        } finally {
+          // Đặt lại cờ xử lý
+          isProcessingPrize = false;
+        }
+      }
+
+      // Hiển thị danh sách phần thưởng
+      function renderUserPrizes() {
+        var prizesList = document.getElementById('user-prizes-list');
+        if (!prizesList) return;
+
+        // Xóa nội dung cũ
+        prizesList.innerHTML = '';
+
+        // Nếu không có phần thưởng
+        if (userPrizes.length === 0) {
+          prizesList.innerHTML =
+            '<div class="no-prizes">Bạn chưa quay được phần thưởng nào. Hãy thử vận may ngay!</div>';
+          return;
+        }
+
+        // Sắp xếp phần thưởng theo thời gian giảm dần (mới nhất lên đầu)
+        userPrizes.sort(function (a, b) {
+          var timeA = a.timestamp || new Date(a.date).getTime();
+          var timeB = b.timestamp || new Date(b.date).getTime();
+          return timeB - timeA;
+        });
+
+        // Hiển thị danh sách phần thưởng
+        userPrizes.forEach(function (prize, index) {
+          var prizeCard = document.createElement('div');
+          prizeCard.className = 'prize-card';
+
+          var prizeHTML = `
+                <div class="prize-icon"><i class="fas fa-gift"></i></div>
+                <div class="prize-title">${prize.title}</div>
+                <div class="prize-description">${prize.description}</div>
+                <div class="prize-date">Thời gian: ${prize.date}</div>
+                `;
+          // <div class="d-flex justify-content-center mt-2">
+          //     <button class="btn-claim" onclick="claimPrize(${index})">NHẬN THƯỞNG</button>
+          // </div>
+
+          prizeCard.innerHTML = prizeHTML;
+          prizesList.appendChild(prizeCard);
+        });
+      }
+
+      // Hàm để nhận thưởng từ danh sách
+      function claimPrize(index) {
+        if (index >= 0 && index < userPrizes.length) {
+          var prize = userPrizes[index];
+          openRegistrationForm(prize);
+        }
+      }
+
+      // Điều chỉnh kích thước canvas khi trang được tải và khi thay đổi kích thước
+      function adjustCanvasSize() {
+        const container = document.querySelector('.wheel-container');
+        const canvas = document.getElementById('canvas');
+
+        if (!container || !canvas) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const size = Math.floor(containerRect.width);
+
+        canvas.width = size;
+        canvas.height = size;
+
+        if (typeof theWheel !== 'undefined') {
+          theWheel.centerX = size / 2;
+          theWheel.centerY = size / 2;
+          theWheel.outerRadius = (size - 20) / 2;
+
+          // Gọi hàm cập nhật kích thước font
+          updateWheelTextSize();
+        }
+      }
+
+      // Thêm ResizeObserver để theo dõi thay đổi kích thước container
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          if (entry.target.classList.contains('wheel-container')) {
+            adjustCanvasSize();
+          }
+        }
+      });
+
+      // Theo dõi thay đổi kích thước của container
+      document.addEventListener('DOMContentLoaded', function () {
+        const container = document.querySelector('.wheel-container');
+        if (container) {
+          resizeObserver.observe(container);
+        }
+
+        // Điều chỉnh kích thước ban đầu
+        adjustCanvasSize();
+      });
+    </script>
+
+    <!-- Cập nhật script trong file lucky-wheel.js -->
+    <script>
+      // Đảm bảo script này chạy sau khi lucky-wheel.js đã được tải
+      document.addEventListener('DOMContentLoaded', function () {
+        // Xóa trạng thái claim khi tải lại trang
+        localStorage.removeItem('hasClaimedAnyPrize');
+
+        // Đặt lại trạng thái claim cho tất cả các phần thưởng
+        var prizes = localStorage.getItem('userPrizes')
+          ? JSON.parse(localStorage.getItem('userPrizes'))
+          : [];
+        if (Array.isArray(prizes)) {
+          prizes.forEach(function (prize) {
+            prize.claimed = false;
+          });
+          localStorage.setItem('userPrizes', JSON.stringify(prizes));
+        }
+
+        // Thêm biến kiểm tra đã nhận thưởng chưa
+        var hasClaimedAnyPrize = false;
+
+        // Kiểm tra xem người dùng đã nhận thưởng nào chưa khi tải trang
+        function checkIfUserHasClaimedPrize() {
+          try {
+            var prizes = localStorage.getItem('userPrizes')
+              ? JSON.parse(localStorage.getItem('userPrizes'))
+              : [];
+            if (Array.isArray(prizes)) {
+              for (var i = 0; i < prizes.length; i++) {
+                if (prizes[i].claimed === true) {
+                  hasClaimedAnyPrize = true;
+                  console.log(
+                    'Người dùng đã nhận ít nhất một phần thưởng trước đó'
+                  );
+                  break;
+                }
+              }
+            }
+          } catch (e) {
+            console.error('Lỗi khi kiểm tra trạng thái nhận thưởng:', e);
+          }
+        }
+
+        // Gọi hàm kiểm tra khi tải trang
+        checkIfUserHasClaimedPrize();
+
+        // Hoàn toàn ghi đè hàm alertPrize để tránh gọi hai lần
+        window.alertPrize = function () {
+          // Đánh dấu đang xử lý
+          window.isAlertPrizeInProgress = true;
+
+          try {
+            // Lấy phần được chọn
+            var winningSegment = theWheel.getIndicatedSegment();
+
+            // Hiển thị kết quả trong modal
+            var prizeDescriptionElement =
+              document.getElementById('prizeDescription');
+            var claimInstructions =
+              document.getElementById('claim-instructions');
+
+            if (prizeDescriptionElement) {
+              prizeDescriptionElement.textContent = winningSegment.description;
+            }
+
+            // Kiểm tra loại giải thưởng
+            var isPrize = !winningSegment.description.includes(
+              'Chúc bạn may mắn lần sau'
+            );
+
+            // Hiển thị hướng dẫn phù hợp
+            if (claimInstructions) {
+              claimInstructions.style.display = isPrize ? 'block' : 'none';
+            }
+
+            if (isPrize) {
+              // Tạo đối tượng phần thưởng
+              var prizeInfo = {
+                title: winningSegment.text.replace('\n', ' '),
+                description: winningSegment.description,
+                date: new Date().toLocaleString(),
+                type: currentWheelType,
+                timestamp: new Date().getTime(),
+                // Thêm ID để đảm bảo phần thưởng là duy nhất
+                id: new Date().getTime(),
+                claimed: false, // Thêm trạng thái chưa nhận thưởng
+              };
+
+              console.log('Phần thưởng nhận được: ', prizeInfo);
+
+              // Gọi hàm lưu phần thưởng
+              savePrize(prizeInfo);
+            }
+
+            // Hiện modal
+            $('#resultModal').modal('show');
+          } catch (error) {
+            console.error('Lỗi trong alertPrize: ', error);
+          } finally {
+            // Reset trạng thái quay
+            window.isSpinning = false;
+            window.isSpinningWheel = false;
+            window.isPrizeRequestInProgress = false;
+            window.isAlertPrizeInProgress = false;
+
+            // Reset vòng quay sau 1 giây
+            setTimeout(function () {
+              theWheel.stopAnimation(false);
+              theWheel.rotationAngle = 0;
+              theWheel.draw();
+              canSpin = true;
+            }, 1000);
+          }
+        };
+
+        // Cập nhật hàm lưu phần thưởng để thêm trạng thái claimed
+        window.savePrize = function (prizeInfo) {
+          // Kiểm tra nếu đang trong quá trình xử lý
+          if (isProcessingPrize) {
+            console.log('Đang xử lý phần thưởng, bỏ qua yêu cầu trùng lặp');
+            return;
+          }
+
+          isProcessingPrize = true;
+
+          try {
+            // Kiểm tra xem đây có phải là giải thưởng thật hay không
+            if (
+              !prizeInfo.description ||
+              prizeInfo.description.includes('Chúc bạn may mắn lần sau')
+            ) {
+              console.log('Không phải giải thưởng thật, không lưu');
+              isProcessingPrize = false;
+              return;
+            }
+
+            // Tạo ID duy nhất cho phần thưởng nếu chưa có
+            if (!prizeInfo.id) {
+              prizeInfo.id = new Date().getTime();
+            }
+
+            // Thêm trạng thái claimed nếu chưa có
+            if (prizeInfo.claimed === undefined) {
+              prizeInfo.claimed = false;
+            }
+
+            // Kiểm tra khoảng thời gian giữa phần thưởng hiện tại và phần thưởng trước đó
+            var currentTime = new Date().getTime();
+            if (currentTime - lastPrizeTimestamp < 3000) {
+              // 3 giây
+              console.log(
+                'Quá nhanh giữa các lần lưu phần thưởng, có thể là trùng lặp'
+              );
+              isProcessingPrize = false;
+              return;
+            }
+
+            // Cập nhật timestamp cho lần lưu phần thưởng này
+            lastPrizeTimestamp = currentTime;
+
+            // Lấy danh sách phần thưởng hiện có
+            var prizes = [];
+            try {
+              prizes = localStorage.getItem('userPrizes')
+                ? JSON.parse(localStorage.getItem('userPrizes'))
+                : [];
+            } catch (error) {
+              console.error(
+                'Lỗi khi đọc danh sách phần thưởng từ localStorage, tạo mới'
+              );
+              prizes = [];
+            }
+
+            // Thêm timestamp cho phần thưởng nếu chưa có
+            if (!prizeInfo.timestamp) {
+              prizeInfo.timestamp = currentTime;
+            }
+
+            // Thêm phần thưởng vào danh sách
+            prizes.push(prizeInfo);
+
+            // Lưu vào localStorage
+            localStorage.setItem('userPrizes', JSON.stringify(prizes));
+
+            // Cập nhật biến userPrizes
+            userPrizes = prizes;
+
+            // Cập nhật giao diện hiển thị
+            renderUserPrizes();
+
+            console.log('Đã lưu phần thưởng mới: ' + prizeInfo.title);
+          } catch (error) {
+            console.error('Lỗi khi lưu phần thưởng:', error);
+          } finally {
+            // Đặt lại cờ xử lý
+            isProcessingPrize = false;
+          }
+        };
+
+        // Cập nhật hàm renderUserPrizes để hiển thị trạng thái đã nhận thưởng
+        window.renderUserPrizes = function () {
+          var prizesList = document.getElementById('user-prizes-list');
+          if (!prizesList) return;
+
+          // Xóa nội dung cũ
+          prizesList.innerHTML = '';
+
+          // Nếu không có phần thưởng
+          if (userPrizes.length === 0) {
+            prizesList.innerHTML =
+              '<div class="no-prizes">Bạn chưa quay được phần thưởng nào. Hãy thử vận may ngay!</div>';
+            return;
+          }
+
+          // Sắp xếp phần thưởng theo thời gian giảm dần (mới nhất lên đầu)
+          userPrizes.sort(function (a, b) {
+            var timeA = a.timestamp || new Date(a.date).getTime();
+            var timeB = b.timestamp || new Date(b.date).getTime();
+            return timeB - timeA;
+          });
+
+          // Hiển thị danh sách phần thưởng
+          userPrizes.forEach(function (prize, index) {
+            var prizeCard = document.createElement('div');
+            prizeCard.className = 'prize-card';
+
+            var claimButton = '';
+
+            // Kiểm tra trạng thái đã nhận thưởng
+            // if (prize.claimed) {
+            //   claimButton = `<div class="text-success mt-2 text-center"><i class="fas fa-check-circle"></i> Đã nhận thưởng</div>`;
+            // } else {
+            //   // Hiển thị nút nhận thưởng nếu chưa có giải nào được nhận
+            //   if (hasClaimedAnyPrize) {
+            //     claimButton = `<div class="text-muted mt-2 text-center"><i class="fas fa-lock"></i> Bạn đã nhận thưởng ưu đãi khác</div>`;
+            //   } else {
+            //     claimButton = `<div class="d-flex justify-content-center mt-2">
+            //                 <button class="btn-claim" onclick="claimPrize(${index})">NHẬN THƯỞNG</button>
+            //             </div>`;
+            //   }
+            // }
+
+            var prizeHTML = `
+                    <div class="prize-icon"><i class="fas fa-gift"></i></div>
+                    <div class="prize-title">${prize.title}</div>
+                    <div class="prize-description">${prize.description}</div>
+                    <div class="prize-date">Thời gian: ${prize.date}</div>
+                    `;
+            // ${claimButton}
+
+            prizeCard.innerHTML = prizeHTML;
+            prizesList.appendChild(prizeCard);
+          });
+        };
+
+        // Cập nhật hàm nhận thưởng để đánh dấu đã nhận
+        window.claimPrize = function (index) {
+          if (index >= 0 && index < userPrizes.length) {
+            var prize = userPrizes[index];
+
+            // Kiểm tra nếu đã nhận thưởng
+            if (prize.claimed) {
+              alert('Phần thưởng này đã được nhận trước đó!');
+              return;
+            }
+
+            // Kiểm tra nếu đã nhận thưởng khác
+            if (hasClaimedAnyPrize) {
+              alert(
+                'Bạn đã nhận thưởng cho một ưu đãi khác trước đó. Mỗi người chỉ được nhận một ưu đãi!'
+              );
+              return;
+            }
+
+            // Mở form đăng ký
+            openRegistrationForm(prize);
+          }
+        };
+
+        // Cập nhật hàm mở form đăng ký để cập nhật trạng thái khi gửi thành công
+        window.openRegistrationForm = function (prize) {
+          // Kiểm tra nếu đã nhận thưởng khác
+          if (hasClaimedAnyPrize) {
+            alert(
+              'Bạn đã nhận thưởng cho một ưu đãi khác trước đó. Mỗi người chỉ được nhận một ưu đãi!'
+            );
+            return;
+          }
+
+          // Chờ một chút nếu đang đóng modal kết quả
+          setTimeout(function () {
+            // Điền thông tin phần thưởng vào form
+            if (document.getElementById('txtLuckyWheelPrize')) {
+              document.getElementById('txtLuckyWheelPrize').value = prize
+                ? prize.title
+                : theWheel.getIndicatedSegment().text.replace('\n', ' ');
+            }
+
+            if (document.getElementById('txtLuckyWheelType')) {
+              document.getElementById('txtLuckyWheelType').value = prize
+                ? prize.type
+                : currentWheelType;
+            }
+
+            if (document.getElementById('txtLuckyWheelTime')) {
+              document.getElementById('txtLuckyWheelTime').value = prize
+                ? prize.date
+                : new Date().toLocaleString();
+            }
+
+            // Lưu index của phần thưởng đang được nhận
+            if (prize) {
+              // Tìm index trong mảng userPrizes
+              for (var i = 0; i < userPrizes.length; i++) {
+                if (userPrizes[i].id === prize.id) {
+                  $('#luckyWheelClaimForm').data('prize-index', i);
+                  break;
+                }
+              }
+            }
+
+            // Mở modal đăng ký nhận thưởng
+            $('#luckyWheelClaimModal').modal('show');
+          }, 300);
+        };
+
+        // Cập nhật xử lý form đăng ký nhận thưởng
+        $('#luckyWheelClaimForm').on('submit', function (e) {
+          e.preventDefault();
+
+          // Kiểm tra nếu đã nhận thưởng khác
+          if (hasClaimedAnyPrize) {
+            alert(
+              'Bạn đã nhận thưởng cho một ưu đãi khác trước đó. Mỗi người chỉ được nhận một ưu đãi!'
+            );
+            $('#luckyWheelClaimModal').modal('hide');
+            return;
+          }
+
+          var name = $('#txtLuckyWheelName').val();
+          var phone = $('#txtLuckyWheelPhone').val();
+          var prize = $('#txtLuckyWheelPrize').val();
+          var wheelType = $('#txtLuckyWheelType').val();
+          var timestamp = $('#txtLuckyWheelTime').val();
+
+          if (!name || !phone) {
+            alert('Vui lòng điền đầy đủ thông tin!');
+            return;
+          }
+
+          // Disable nút đăng ký để tránh submit nhiều lần
+          $('#btnSubmitLuckyWheelClaim')
+            .prop('disabled', true)
+            .text('ĐANG XỬ LÝ...');
+
+          // Sử dụng AJAX để gọi đến Controller
+          $.ajax({
+            url: '/Ajax/SubmitLuckyWheelClaim',
+            type: 'POST',
+            data: {
+              name: name,
+              phone: phone,
+              prize: prize,
+              wheelType: wheelType,
+              timestamp: timestamp,
+            },
+            success: function (response) {
+              // Đóng modal
+              $('#luckyWheelClaimModal').modal('hide');
+
+              if (response.success) {
+                // Lấy index của phần thưởng đang được nhận
+                var prizeIndex = $('#luckyWheelClaimForm').data('prize-index');
+
+                // Cập nhật trạng thái đã nhận thưởng
+                if (
+                  prizeIndex !== undefined &&
+                  prizeIndex >= 0 &&
+                  prizeIndex < userPrizes.length
+                ) {
+                  userPrizes[prizeIndex].claimed = true;
+                  localStorage.setItem(
+                    'userPrizes',
+                    JSON.stringify(userPrizes)
+                  );
+
+                  // Đặt biến toàn cục đã nhận thưởng
+                  hasClaimedAnyPrize = true;
+
+                  // Lưu trạng thái đã nhận thưởng vào localStorage
+                  localStorage.setItem('hasClaimedAnyPrize', 'true');
+
+                  // Cập nhật giao diện
+                  renderUserPrizes();
+                }
+
+                alert(
+                  response.message ||
+                    'Đăng ký nhận thưởng thành công! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.'
+                );
+              } else {
+                alert(
+                  response.message ||
+                    'Có lỗi xảy ra khi đăng ký nhận thưởng. Vui lòng thử lại sau!'
+                );
+              }
+
+              // Reset form
+              $('#luckyWheelClaimForm')[0].reset();
+              $('#btnSubmitLuckyWheelClaim')
+                .prop('disabled', false)
+                .text('ĐĂNG KÝ NHẬN THƯỞNG');
+            },
+            error: function (error) {
+              console.error('Lỗi khi gửi dữ liệu:', error);
+              alert(
+                'Có lỗi xảy ra khi đăng ký nhận thưởng. Vui lòng thử lại sau!'
+              );
+              $('#btnSubmitLuckyWheelClaim')
+                .prop('disabled', false)
+                .text('ĐĂNG KÝ NHẬN THƯỞNG');
+            },
+          });
+        });
+
+        // Cập nhật hàm tải phần thưởng để xử lý trạng thái đã nhận thưởng
+        window.loadPrizesFromLocalStorage = function () {
+          try {
+            // Kiểm tra biến toàn cục đã nhận thưởng
+            var storedClaimStatus = localStorage.getItem('hasClaimedAnyPrize');
+            if (storedClaimStatus === 'true') {
+              hasClaimedAnyPrize = true;
+              console.log(
+                'Trạng thái đã nhận thưởng: Người dùng đã nhận ít nhất một phần thưởng'
+              );
+            }
+
+            // Lấy danh sách phần thưởng từ localStorage
+            var storedPrizes = localStorage.getItem('userPrizes');
+
+            if (!storedPrizes) {
+              userPrizes = [];
+              renderUserPrizes();
+              return;
+            }
+
+            try {
+              var prizes = JSON.parse(storedPrizes);
+              if (!Array.isArray(prizes)) {
+                console.error(
+                  'Dữ liệu phần thưởng không phải mảng, xóa và tạo mới'
+                );
+                localStorage.removeItem('userPrizes');
+                userPrizes = [];
+                renderUserPrizes();
+                return;
+              }
+
+              // Xác thực phần thưởng từ localStorage
+              var validPrizes = [];
+              prizeSignatures = {}; // Reset signatures
+
+              prizes.forEach(function (prize, index) {
+                // Kiểm tra tính hợp lệ của đối tượng phần thưởng
+                if (!prize || !prize.title || !prize.description) {
+                  return; // Bỏ qua nếu thiếu thông tin cơ bản
+                }
+
+                // Kiểm tra xem phần thưởng có phải "Chúc bạn may mắn lần sau" không
+                if (prize.description.includes('Chúc bạn may mắn lần sau')) {
+                  return; // Bỏ qua phần thưởng này
+                }
+
+                // Thêm ID nếu chưa có
+                if (!prize.id) {
+                  prize.id = new Date().getTime() + index;
+                }
+
+                // Thêm timestamp nếu chưa có
+                if (!prize.timestamp) {
+                  prize.timestamp =
+                    new Date(prize.date).getTime() || new Date().getTime();
+                }
+
+                // Đảm bảo trạng thái claimed được giữ nguyên hoặc mặc định là false
+                if (prize.claimed === undefined) {
+                  prize.claimed = false;
+                }
+
+                // Kiểm tra nếu có phần thưởng đã claimed
+                if (prize.claimed === true) {
+                  hasClaimedAnyPrize = true;
+                  localStorage.setItem('hasClaimedAnyPrize', 'true');
+                }
+
+                validPrizes.push(prize);
+              });
+
+              // Cập nhật userPrizes với danh sách đã lọc
+              userPrizes = validPrizes;
+
+              // Lưu lại danh sách đã lọc
+              localStorage.setItem('userPrizes', JSON.stringify(userPrizes));
+
+              // Hiển thị danh sách phần thưởng
+              renderUserPrizes();
+
+              console.log(
+                'Đã tải ' +
+                  userPrizes.length +
+                  ' phần thưởng hợp lệ từ localStorage'
+              );
+            } catch (parseError) {
+              console.error(
+                'Lỗi khi phân tích JSON từ localStorage:',
+                parseError
+              );
+              localStorage.removeItem('userPrizes');
+              userPrizes = [];
+              renderUserPrizes();
+            }
+          } catch (error) {
+            console.error('Lỗi khi tải phần thưởng từ localStorage:', error);
+            userPrizes = [];
+            localStorage.removeItem('userPrizes');
+            renderUserPrizes();
+          }
+        };
+
+        // Thêm thông báo trạng thái đã nhận thưởng dưới danh sách phần thưởng
+        function addClaimStatusNotice() {
+          var prizesList = document.getElementById('user-prizes-list');
+          if (!prizesList) return;
+
+          // Thêm hàm để tải lại trang khi reset
+          window.resetClaimStatus = function () {
+            localStorage.removeItem('hasClaimedAnyPrize');
+            var prizes = localStorage.getItem('userPrizes')
+              ? JSON.parse(localStorage.getItem('userPrizes'))
+              : [];
+            if (Array.isArray(prizes)) {
+              prizes.forEach(function (prize) {
+                prize.claimed = false;
+              });
+              localStorage.setItem('userPrizes', JSON.stringify(prizes));
+            }
+            location.reload();
+          };
+
+          // Không hiển thị thông báo và nút reset
+          // if (hasClaimedAnyPrize) {
+          //     // Thêm thông báo và nút reset nếu cần
+          //     var statusDiv = document.createElement('div');
+          //     statusDiv.className = 'alert alert-info mt-3 text-center';
+          //     statusDiv.innerHTML = `
+          //         <p>Bạn đã nhận một phần thưởng. Mỗi người chỉ được nhận một ưu đãi duy nhất.</p>
+          //         <button onclick="resetClaimStatus()" class="btn btn-sm btn-outline-primary mt-2">Đặt lại trạng thái</button>
+          //     `;
+          //
+          //     // Thêm vào sau danh sách phần thưởng
+          //     var userPrizesContainer = document.querySelector('.user-prizes');
+          //     if (userPrizesContainer) {
+          //         userPrizesContainer.appendChild(statusDiv);
+          //     }
+          // }
+        }
+
+        // Thêm sự kiện để thêm thông báo sau khi tải danh sách phần thưởng
+        $(document).ready(function () {
+          // Gọi hàm ban đầu
+          loadPrizesFromLocalStorage();
+
+          // Đợi một chút để đảm bảo danh sách được render trước
+          setTimeout(addClaimStatusNotice, 500);
+        });
+      });
+    </script>
+  </body>
+</html>

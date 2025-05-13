@@ -1,0 +1,990 @@
+/* CSS mới cho background và theme sinh trắc vân tay */
+body {
+  --color-1: #efebe0;
+  --color-2: #fb8da0;
+  --color-3: #fb6b90;
+  --color-4: #fb4570;
+
+  background-color: var(--color-1);
+  position: relative;
+}
+
+.page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(255, 200, 200, 0.1);
+  overflow: hidden;
+}
+
+.spa-bg-icon {
+  position: absolute;
+  font-size: 200px;
+  color: rgba(220, 50, 50, 0.05);
+  transform-origin: center;
+  z-index: -1;
+  animation: rotateIcon 60s infinite linear;
+}
+
+.spa-bg-icon:nth-child(1) {
+  top: 15%;
+  left: 10%;
+  transform: rotate(15deg);
+}
+
+.spa-bg-icon:nth-child(2) {
+  top: 65%;
+  left: 20%;
+  transform: rotate(-20deg);
+  font-size: 250px;
+}
+
+.spa-bg-icon:nth-child(3) {
+  top: 25%;
+  right: 15%;
+  transform: rotate(30deg);
+  font-size: 180px;
+}
+
+.spa-bg-icon:nth-child(4) {
+  bottom: 10%;
+  right: 10%;
+  transform: rotate(-10deg);
+  font-size: 220px;
+}
+
+@keyframes rotateIcon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pointerPulse {
+  0% {
+    filter: drop-shadow(0 0 5px var(--color-3));
+    transform: perspective(100px) rotateX(5deg) scale(0.97);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 1));
+    transform: perspective(100px) rotateX(5deg) scale(1.03);
+  }
+}
+
+@keyframes pulse-spa {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.9) rotate(0deg);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1.1) rotate(10deg);
+  }
+}
+
+@keyframes pulse-spa-icon {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-icon {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Header Styles */
+.lucky-wheel-header {
+  background: linear-gradient(135deg, var(--color-2), var(--color-3));
+  position: relative;
+  overflow: hidden;
+  /* margin-bottom: 50px; */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.spa-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.15' d='M50,10 C30,10 10,30 10,50 C10,70 30,90 50,90 C70,90 90,70 90,50 C90,30 70,10 50,10 Z M20,50 C20,30 30,20 50,20 C70,20 80,30 80,50 C80,70 70,80 50,80 C30,80 20,70 20,50 Z M30,50 C30,40 40,30 50,30 C60,30 70,40 70,50 C70,60 60,70 50,70 C40,70 30,60 30,50 Z'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.lucky-wheel-header .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Wheel Container Styles */
+.wheel-container {
+  position: relative;
+  margin: 20px auto;
+  border-radius: 50%;
+  padding: 12px;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 0 45px var(--color-2), 0 0 30px var(--color-1),
+    0 0 20px var(--color-2), inset 0 0 10px var(--color-1);
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1/1;
+  z-index: 5;
+  display: block;
+}
+
+/* Hiệu ứng đèn chớp xung quanh vòng quay */
+.wheel-container:before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    var(--color-1),
+    var(--color-2),
+    var(--color-1),
+    var(--color-2),
+    var(--color-1)
+  );
+  z-index: -1;
+  animation: rotateGradient 5s linear infinite;
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    transform: rotate(360deg);
+    background-position: 0% 50%;
+  }
+}
+
+/* Khung nền đỏ cho vòng quay */
+#wheelContainer {
+  background-color: rgba(154, 9, 3, 0.2);
+  border-radius: 50%;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  background-color: transparent;
+  display: block;
+  /* Loại bỏ viền đặc, thay bằng hiệu ứng glow */
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Hiệu ứng khi đang kéo canvas */
+#canvas:active {
+  cursor: grabbing;
+}
+
+/* Pointer Styles */
+.pointer-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  overflow: visible;
+  background: transparent;
+}
+
+.pointer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+  background: linear-gradient(
+    to bottom,
+    var(--color-4) 0%,
+    var(--color-2) 100%
+  );
+  animation: pointerPulse 1.5s infinite alternate,
+    pointerGlow 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  transform-style: preserve-3d;
+  transform: perspective(100px) rotateX(5deg);
+}
+
+/* Hiệu ứng phát sáng cho mũi tên */
+@keyframes pointerGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px color(from var(--color-3) to var(--color-4)));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px color(from var(--color-3) to var(--color-4)));
+  }
+}
+
+/* Prize List Styles */
+.prize-list ul li {
+  position: relative;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.prize-list ul li:hover {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+#start-spin {
+  background: linear-gradient(to bottom, var(--color-3), var(--color-4));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 15px var(--color-3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#start-spin:hover {
+  background: linear-gradient(to bottom, var(--color-4), var(--color-3));
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px var(--color-3);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .wheel-container {
+    width: 90%;
+    max-width: 320px;
+    padding: 8px;
+    margin: 10px auto;
+  }
+
+  .pointer-container {
+    width: 40px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wheel-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+  }
+
+  .pointer-container {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Fix for all browsers */
+.wheel-container,
+#canvas {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* ===== Additional styles from lucky-wheel.css ===== */
+
+/* Wheel Card Styles */
+.wheel-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 20px;
+  height: 100%;
+}
+
+/* Wheel Type Selector */
+.wheel-type-selector {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.wheel-type-btn {
+  background: linear-gradient(135deg, var(--color-2) 0%, var(--color-2) 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  text-transform: uppercase;
+  min-width: 180px;
+}
+
+.wheel-type-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.wheel-type-btn.active {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.wheel-type-btn.disabled {
+  background-color: #6c757d;
+  border-color: #5a6268;
+  cursor: not-allowed;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+#wheel-type-message {
+  color: #dc3545;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 8px 15px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  display: none;
+}
+
+/* Wheel Guide */
+.wheel-guide {
+  background: linear-gradient(135deg, var(--color-2), var(--color-3));
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px var(--color-2);
+  font-weight: bold;
+  font-size: 18px;
+  animation: guideGlow 2s infinite;
+}
+
+.wheel-guide i {
+  margin-right: 8px;
+  animation: hand-wave 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes guideGlow {
+  0%,
+  100% {
+    box-shadow: 0 4px 15px rgb(from var(--color-4) r g b / 0.6);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgb(from var(--color-4) r g b / 0.8);
+  }
+}
+
+@keyframes hand-wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Spin Counter */
+.spin-counter {
+  display: inline-block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: var(--color-4);
+  color: white;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.spin-counter span {
+  font-size: 1.2em;
+  color: #ffcc00;
+  text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+/* Start Spin Button States */
+#start-spin.disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#start-spin:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px var(--color-3);
+}
+
+/* Wheel Content Elements */
+.wheel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  border: 10px solid rgba(154, 9, 3, 0);
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
+  background: conic-gradient(
+    #ffcc00 0% 16.6%,
+    #ff6666 16.6% 33.3%,
+    #66ccff 33.3% 50%,
+    #99ff99 50% 66.6%,
+    #ff9966 66.6% 83.3%,
+    #cc99ff 83.3% 100%
+  );
+  transition: transform 4s ease-out;
+}
+
+.wheel-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.wheel-text {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  text-align: center;
+  width: 120px;
+  line-height: 1.2;
+}
+
+.wheel-text:nth-child(1) {
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: center 150px;
+}
+
+.wheel-text:nth-child(2) {
+  transform: translateX(-50%) rotate(60deg);
+  transform-origin: center 150px;
+}
+
+.wheel-text:nth-child(3) {
+  transform: translateX(-50%) rotate(120deg);
+  transform-origin: center 150px;
+}
+
+.wheel-text:nth-child(4) {
+  transform: translateX(-50%) rotate(180deg);
+  transform-origin: center 150px;
+}
+
+.wheel-text:nth-child(5) {
+  transform: translateX(-50%) rotate(240deg);
+  transform-origin: center 150px;
+}
+
+.wheel-text:nth-child(6) {
+  transform: translateX(-50%) rotate(300deg);
+  transform-origin: center 150px;
+}
+
+.btn-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 30px;
+  font-size: 16px;
+  border: none;
+  background: #9a0903;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: bold;
+}
+
+/* User Prizes & Prize Cards */
+.user-prizes {
+  margin-top: 50px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-prizes .prize-header h3 {
+  color: var(--color-4);
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--color-4);
+  padding-bottom: 10px;
+}
+
+.prize-card {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid var(--color-3);
+  transition: all 0.3s ease;
+}
+
+.prize-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.prize-card .prize-icon {
+  color: var(--color-3);
+  margin-right: 10px;
+}
+
+.prize-card .prize-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.prize-card .prize-description {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.prize-card .prize-date {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.prize-card .btn-claim {
+  background-color: var(--color-3);
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.3s;
+  display: block;
+  margin: 0 auto;
+}
+
+.prize-card .btn-claim:hover {
+  background-color: var(--color-4);
+  transform: translateY(-2px);
+}
+
+.prize-card .btn-remove {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 12px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prize-card .btn-remove:hover {
+  background-color: #5a6268;
+}
+
+.no-prizes {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.prize-list {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.prize-list h3 {
+  color: var(--color-4);
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.prize-list h4 {
+  color: var(--color-4);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Animations */
+.congratulation-animation {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Modal Styling */
+.modal-header {
+  background: linear-gradient(135deg, var(--color-2) 0%, var(--color-3) 100%);
+  border: none;
+  padding: 20px;
+}
+
+.modal-title {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.close {
+  color: white;
+}
+
+#claimInstructions {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 4px solid #dc3545;
+}
+
+/* Lucky Wheel Claim Modal */
+#luckyWheelClaimModal .form-dang-ky {
+  position: relative;
+  overflow: hidden;
+}
+
+#luckyWheelClaimModal .about-us-big-title {
+  color: #9a0903;
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+#luckyWheelClaimModal .form-control {
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+#luckyWheelClaimModal .btn {
+  background-color: #9a0903;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+#luckyWheelClaimModal .btn:hover {
+  background-color: #7a0702;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Responsive CSS to complement existing styles */
+@media (max-width: 768px) {
+  .lucky-wheel-header h1 {
+    font-size: 2rem;
+  }
+
+  .lucky-wheel-header p {
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .wheel-type-selector {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .wheel-type-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  #luckyWheelClaimModal .modal-dialog {
+    max-width: 95%;
+    margin: 10px auto;
+  }
+
+  #luckyWheelClaimModal .form-control {
+    font-size: 14px;
+  }
+
+  #luckyWheelClaimModal .btn {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .modal-dialog {
+    max-width: 95%;
+    margin: 10px auto;
+  }
+
+  .congratulation-animation i {
+    font-size: 3rem !important;
+  }
+
+  .modal-body h3.prize-name {
+    font-size: 1.5rem;
+  }
+
+  #one-button-layout button,
+  #two-buttons-layout button {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+
+  .prize-card {
+    padding: 12px;
+  }
+
+  .prize-card .prize-title {
+    font-size: 15px;
+  }
+
+  .prize-card .prize-description {
+    font-size: 13px;
+  }
+
+  /* Cải thiện thêm cho mobile */
+  .lucky-wheel-header h1.display-4 {
+    font-size: 2rem !important;
+  }
+
+  .lucky-wheel-header p.lead {
+    font-size: 1rem !important;
+  }
+
+  #canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 320px;
+    max-height: 320px;
+  }
+
+  #start-spin {
+    margin-top: 10px !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+  }
+
+  .spin-counter {
+    font-size: 14px;
+    padding: 8px 15px;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 375px) {
+  .lucky-wheel-header h1 {
+    font-size: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .wheel-guide {
+    font-size: 14px;
+  }
+
+  .wheel-type-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  #canvas {
+    max-width: 280px;
+    max-height: 280px;
+  }
+
+  .spin-counter {
+    font-size: 12px;
+  }
+
+  /* Cải thiện thêm cho thiết bị siêu nhỏ */
+  .lucky-wheel-header h1.display-4 {
+    font-size: 1.8rem !important;
+  }
+
+  #start-spin {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+
+  .prize-list h3 {
+    font-size: 1.3rem;
+  }
+
+  .prize-list h4 {
+    font-size: 1rem;
+  }
+
+  .modal-body h3.prize-name {
+    font-size: 1.5rem;
+  }
+
+  #one-button-layout button,
+  #two-buttons-layout button {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+}
+
+/* Thêm CSS cho các phần tử liên quan đến vòng quay */
+.prize-list ul li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+  color: #333;
+}
+
+.prize-list ul li:last-child {
+  border-bottom: none;
+}
+
+/* CSS cho layout button trong modal */
+#one-button-layout,
+#two-buttons-layout {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#one-button-layout button,
+#two-buttons-layout button {
+  background: linear-gradient(to bottom, #ff0000, #9a0903);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(154, 9, 3, 0.3);
+}
+
+#one-button-layout button:hover,
+#two-buttons-layout button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(154, 9, 3, 0.5);
+  background: linear-gradient(to bottom, #ff3019, #c90000);
+}
+
+/* CSS cho wheel-pointer cũ */
+.wheel-pointer,
+.wheel-pointer::after {
+  display: none;
+}
+
+/* CSS cho phần congratulation trong modal */
+.modal-body .congratulation-animation {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-body .congratulation-animation i {
+  font-size: 5rem;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  margin: 10px;
+}
+
+.modal-body h3.prize-name {
+  color: #dc3545;
+  text-align: center;
+  font-size: 2rem;
+  margin: 15px 0;
+  font-weight: bold;
+}
