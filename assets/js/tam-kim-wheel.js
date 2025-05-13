@@ -28,7 +28,7 @@ var spinCount = {
   gold: 0,
   vip: 0,
 };
-var maxSpins = 3; // Số lần quay tối đa cho mỗi loại
+var maxSpins = 1; // Số lần quay tối đa cho mỗi loại
 
 // Định nghĩa phần thưởng cho cả hai loại vòng quay
 var goldPrizes = [
