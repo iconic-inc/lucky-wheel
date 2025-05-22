@@ -88,13 +88,13 @@ var goldPrizes = [
     chance: 28,
   },
   {
-    text: 'Ủ mịn - kích\nmọc chân mày',
+    text: 'Voucher 50% điêu khắc\nchân mày và phun môi',
     textFontSize: 14,
     textFontFamily: 'Arial',
     fillStyle: '#ff5e7e',
     textFillStyle: '#fff',
     description:
-      'Bạn đã nhận được 1 lần ủ mịn - kích mọc chân mày (trị giá 600.000đ).',
+      'Bạn đã trúng Voucher giảm 50% cho điêu khắc chân mày và phun môi.',
     chance: 28,
   },
 ];
