@@ -79,7 +79,7 @@ var goldPrizes = [
     textFillStyle: '#333',
     description:
       'Bạn đã nhận được phần thưởng Tặng cọ, bộ dụng cụ học nghề trị giá 1.500.000đ khi đăng ký khóa học.',
-    chance: 25,
+    chance: 80,
   },
   {
     text: 'Voucher giảm 500k\nkhi đăng ký khóa học',
@@ -88,7 +88,7 @@ var goldPrizes = [
     fillStyle: '#fb8da0',
     textFillStyle: '#fff',
     description: 'Bạn đã nhận được Voucher giảm 500.000đ khi đăng ký khóa học.',
-    chance: 25,
+    chance: 0,
   },
   {
     text: 'Tặng Set sơn 44 màu\ntrị giá 700.000đ',
@@ -98,7 +98,7 @@ var goldPrizes = [
     textFillStyle: '#fff',
     description:
       'Bạn đã nhận được phần thưởng Tặng Set sơn 44 màu trị giá 700.000đ khi đăng ký khóa học.',
-    chance: 25,
+    chance: 10,
   },
   {
     text: 'Giảm 10% học phí\nkhóa học bất kỳ',
@@ -108,7 +108,7 @@ var goldPrizes = [
     textFillStyle: '#fff',
     description:
       'Bạn đã nhận được phần thưởng Giảm 10% học phí khóa học bất kỳ.',
-    chance: 25,
+    chance: 10,
   },
 ];
 
