@@ -79,7 +79,7 @@ var goldPrizes = [
     textFillStyle: '#333',
     description:
       'Bạn đã nhận được phần thưởng Tặng cọ, bộ dụng cụ học nghề trị giá 1.500.000đ khi đăng ký khóa học.',
-    chance: 80,
+    chance: 50,
   },
   {
     text: 'Voucher giảm 500k\nkhi đăng ký khóa học',
@@ -88,7 +88,7 @@ var goldPrizes = [
     fillStyle: '#fb8da0',
     textFillStyle: '#fff',
     description: 'Bạn đã nhận được Voucher giảm 500.000đ khi đăng ký khóa học.',
-    chance: 0,
+    chance: 30,
   },
   {
     text: 'Tặng Set sơn 44 màu\ntrị giá 700.000đ',
@@ -606,9 +606,10 @@ function spinWheel() {
     // lockWheelTypeSelection();
 
     // let weights = [40, 25, 20, 10, 5, 0, 0];
+    let prizes = currentWheelType === 'gold' ? goldPrizes : vipPrizes;
     let weights = [];
-    for (let i = 0; i < goldPrizes.length; i++) {
-      weights.push(goldPrizes[i].chance);
+    for (let i = 0; i < prizes.length; i++) {
+      weights.push(prizes[i].chance);
     }
 
     const totalWeight = weights.reduce((sum, w) => sum + w, 0);
