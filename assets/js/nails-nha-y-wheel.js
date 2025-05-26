@@ -28,7 +28,7 @@ var spinCount = {
   gold: 0,
   vip: 0,
 };
-var maxSpins = 1; // Số lần quay tối đa cho mỗi loại
+var maxSpins = 3; // Số lần quay tối đa cho mỗi loại
 
 // Định nghĩa phần thưởng cho cả hai loại vòng quay
 var goldPrizes = [
@@ -162,22 +162,23 @@ const vipPrizes = [
     chance: 5,
   },
   {
-    text: 'Quà tặng\nđắp mặt nạ tay',
+    text: 'Quà tặng đắp mặt nạ tay\n6 tháng (6 lần)',
     textFontSize: 14,
     textFontFamily: 'Arial',
     fillStyle: '#fb8da0',
     textFillStyle: '#fff',
-    description: 'Bạn đã nhận được phần thưởng Quà tặng đắp mặt nạ tay.',
+    description:
+      'Bạn đã nhận được phần thưởng Quà tặng đắp mặt nạ tay 6 tháng (6 lần).',
     chance: 0,
   },
   {
-    text: '1 năm được tặng dịch vụ\nSơn gel 200k giảm còn 130k',
+    text: '1 năm được tặng dịch vụ\nSơn gel 200k giảm còn 19k',
     textFontSize: 14,
     textFontFamily: 'Arial',
     fillStyle: '#fb6b90',
     textFillStyle: '#fff',
     description:
-      'Bạn đã nhận được phần thưởng 1 năm được tặng dịch vụ Sơn gel 200k giảm còn 130k.',
+      'Bạn đã nhận được phần thưởng 1 năm được tặng dịch vụ Sơn gel 200k giảm còn 19k.',
     chance: 0,
   },
 ];
