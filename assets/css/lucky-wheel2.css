@@ -1,9 +1,9 @@
 /* CSS mới cho background và theme sinh trắc vân tay */
 body {
-  --color-1: #efebe0;
-  --color-2: #fb8da0;
-  --color-3: #fb6b90;
-  --color-4: #fb4570;
+  --color-1: #fff0f0;
+  --color-2: #ff4d4d;
+  --color-3: #ff0000;
+  --color-4: #9a0903;
 
   background-color: var(--color-1);
   position: relative;
@@ -279,7 +279,7 @@ body {
 
 /* Button Styles */
 #start-spin {
-  background: linear-gradient(to bottom, var(--color-3), var(--color-4));
+  background: linear-gradient(to bottom, var(--color-3), var(--color-2));
   color: white;
   border: none;
   border-radius: 50px;
@@ -295,7 +295,7 @@ body {
 }
 
 #start-spin:hover {
-  background: linear-gradient(to bottom, var(--color-4), var(--color-3));
+  background: linear-gradient(to bottom, var(--color-2), var(--color-3));
   transform: translateY(-2px);
   box-shadow: 0 7px 20px var(--color-3);
 }
